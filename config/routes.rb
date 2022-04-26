@@ -12,5 +12,9 @@ Rails.application.routes.draw do
   get("/divide", { :controller => "application", :action => "divide_form"})
   get("/wizard_divide", { :controller => "application", :action => "divide_results"})
 
+  get("/street_to_coords/new", { :controller => "application", :action => "address_form"})
+  get("/street_to_coords/results", { :controller => "application", :action => "address_results"})
+
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

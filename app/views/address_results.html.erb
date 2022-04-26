@@ -1,0 +1,20 @@
+<h1>Street address to coordinates results</h1>
+<div>
+  <p>Street Address</p>
+  <p><%= @user_street_address %></p>
+</div>
+
+<div>
+  <p>Latitude</p>
+  <p><%= @latitude %></p> <%# or it would have been: @parsed_data.fetch("results").at(0).fetch("geometry").fetch("location").fetch("lat")%>
+</div>
+
+<div>
+  <p>Longitude</p>
+  <p><%= @longitude %></p>
+</div>
+
+<br/>
+<div>
+  <a href="/street_to_coords/new">Check another address</a>
+</div>

@@ -42,4 +42,26 @@ class ApplicationController < ActionController::Base
     @divided_nums = @first_num / @second_num
     render({ :template => "/divide_results.html.erb" })
   end
+
+  def address_form
+    render({ :template => "/address_form.html.erb" })
+  end
+
+  def address_results
+    @user_street_address = params.fetch("user_street_address")
+    address_for_api = @user_street_address.gsub(" ", "%20")
+
+    # booth_url = "https://www.chicagobooth.edu/"
+    # @thing = open(booth_url).read.length ===> WEB SCRAPING
+
+
+    geolocation = "https://maps.googleapis.com/maps/api/geocode/json?address=#{address_for_api}&key=AIzaSyD8RrOFB0dPsF-leqeFJdmX3yOvcQbfNyY"
+                  #  https://maps.googleapis.com/maps/api/geocode/json?address=2525%20Eliot%20Street&key=AIzaSyD8RrOFB0dPsF-leqeFJdmX3yOvcQbfNyY
+    data = open(geolocation).read
+    @parsed_data = JSON.parse(data)
+    @latitude = @parsed_data["results"][0]["geometry"]["location"]["lat"]
+    @longitude = @parsed_data["results"][0]["geometry"]["location"]["lng"]
+
+    render({ :template => "/address_results.html.erb" })
+  end
 end
