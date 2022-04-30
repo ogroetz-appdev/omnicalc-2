@@ -54,13 +54,18 @@ class ApplicationController < ActionController::Base
     # booth_url = "https://www.chicagobooth.edu/"
     # @thing = open(booth_url).read.length ===> WEB SCRAPING
 
+    # geolocation = "https://maps.googleapis.com/maps/api/geocode/json?address=#{address_for_api}&key=AIzaSyD8RrOFB0dPsF-leqeFJdmX3yOvcQbfNyY"
+    #               #  https://maps.googleapis.com/maps/api/geocode/json?address=2525%20Eliot%20Street&key=AIzaSyD8RrOFB0dPsF-leqeFJdmX3yOvcQbfNyY
+    # data = open(geolocation).read
+    # @parsed_data = JSON.parse(data)
+    # @latitude = @parsed_data["results"][0]["geometry"]["location"]["lat"]
+    # @longitude = @parsed_data["results"][0]["geometry"]["location"]["lng"]
 
-    geolocation = "https://maps.googleapis.com/maps/api/geocode/json?address=#{address_for_api}&key=AIzaSyD8RrOFB0dPsF-leqeFJdmX3yOvcQbfNyY"
-                  #  https://maps.googleapis.com/maps/api/geocode/json?address=2525%20Eliot%20Street&key=AIzaSyD8RrOFB0dPsF-leqeFJdmX3yOvcQbfNyY
-    data = open(geolocation).read
-    @parsed_data = JSON.parse(data)
-    @latitude = @parsed_data["results"][0]["geometry"]["location"]["lat"]
-    @longitude = @parsed_data["results"][0]["geometry"]["location"]["lng"]
+    g = Geocoder.new
+    coords = g.convert_to_coords(address_for_api)
+
+    @latitude = coords[0]
+    @longitude = coords[1]
 
     render({ :template => "/address_results.html.erb" })
   end
