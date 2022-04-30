@@ -32,6 +32,9 @@ gem 'execjs'
 gem 'therubyracer', platforms: :ruby
 gem 'http'
 
+gem "google-cloud-translate", "2.3.0"
+gem "twilio-ruby" 
+
 group :development, :test do
   gem 'amazing_print'
   gem 'dotenv-rails'
